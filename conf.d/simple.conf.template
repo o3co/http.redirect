@@ -1,0 +1,7 @@
+# Simple Redirection config
+server {
+  listen $PORT $LISTEN_FLAG;
+  server_name $SERVER_NAME;
+
+  rewrite ^(.*)$ $REDIRECT_TO$1 $REDIRECT_FLAG;
+}
