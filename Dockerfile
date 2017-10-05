@@ -13,11 +13,12 @@ ENV PORT          "80"
 ENV LISTEN_FLAG   "default_server"
 ENV SERVER_NAME   "_"
 ENV REDIRECT_FLAG "redirect"
+ENV LOG_LEVEL     "warn"
 #ENV REDIRECT_FLAG "permanent"
 # Set following envs on runtime 
 #ENV REDIRECT_TO   http://google.com
 
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD [ \
-  "envsubst '$$PORT$$SERVER_NAME$$LISTEN_FLAG$$REDIRECT_TO$$REDIRECT_FLAG' < /etc/nginx/conf.d/${CONFIG_FILE} | tee /etc/nginx/conf.d/default.conf && nginx -g \"daemon off;\"" \
+  "envsubst '$$PORT$$SERVER_NAME$$LISTEN_FLAG$$REDIRECT_TO$$REDIRECT_FLAG&&LOG_LEVEL' < /etc/nginx/nginx.conf.template | tee /etc/nginx/nginx.conf && envsubst '$$PORT$$SERVER_NAME$$LISTEN_FLAG$$REDIRECT_TO$$REDIRECT_FLAG&&LOG_LEVEL' < /etc/nginx/conf.d/${CONFIG_FILE} | tee /etc/nginx/conf.d/default.conf && nginx -g \"daemon off;\"" \
 ]
