@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+envsubst '$$PORT$$SERVER_NAME$$LISTEN_FLAG$$REDIRECT_TO$$REDIRECT_FLAG$$ACCESS_LOG$$ERROR_LOG$$LOG_LEVEL' < /etc/nginx/nginx.conf.template | tee /etc/nginx/nginx.conf 
+envsubst '$$PORT$$SERVER_NAME$$LISTEN_FLAG$$REDIRECT_TO$$REDIRECT_FLAG$$ACCESS_LOG$$ERROR_LOG$$LOG_LEVEL' < /etc/nginx/conf.d/${CONFIG_FILE} | tee /etc/nginx/conf.d/default.conf 
+nginx -g "daemon off;"
